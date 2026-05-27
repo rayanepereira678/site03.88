@@ -2,8 +2,7 @@ import streamlit as st
 import base64
 import os
 
-# CONFIGURAÇÃO
-st.set_page_config(page_title="Perfil", layout="wide")
+st.set_page_config(page_title="Perfil Netflix Style", layout="wide")
 
 # FUNÇÃO BASE64
 def get_base64_image(path):
@@ -12,86 +11,85 @@ def get_base64_image(path):
             return base64.b64encode(img_file.read()).decode()
     return None
 
-# IMAGENS
-img_base64 = get_base64_image("imagens.png")
-zap_base64 = get_base64_image("whatsapp.png")
+# IMAGENS LOCAIS
+foto = get_base64_image("foto 88.png")
+zap = get_base64_image("whatsapp.png")
 
-# TOPO
-col1, col2, col3 = st.columns([1,2,1])
+# =========================
+# FUNDO ESCURO ESTILO NETFLIX
+# =========================
+st.markdown("""
+<style>
+body {
+    background-color: #111 !important;
+}
+</style>
+""", unsafe_allow_html=True)
 
+# =========================
+# LOGO NETFLIX TOPO
+# =========================
+st.markdown("""
+<div style="text-align:center; margin-bottom:30px;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg"
+         width="260">
+</div>
+""", unsafe_allow_html=True)
+
+# =========================
+# CARD PRINCIPAL
+# =========================
+st.markdown("""
+<div style="
+    background-color:#1c1c1c;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0px 0px 20px rgba(0,0,0,0.6);
+">
+""", unsafe_allow_html=True)
+
+col1, col2 = st.columns([1,2])
+
+# FOTO
+with col1:
+    if foto:
+        st.image("foto 88.png", width=250)
+    else:
+        st.warning("Foto não encontrada")
+
+# TEXTO
 with col2:
-
-    if img_base64:
-        st.markdown(f"""
-        <div style="text-align:center; margin-bottom:40px;">
-            <a href="https://www.netflix.com/br/" target="_blank">
-                <img src="data:image/png;base64,{img_base64}"
-                     width="350"
-                     style="
-                        border-radius:15px;
-                        box-shadow:0px 0px 15px rgba(0,0,0,0.3);
-                     ">
-            </a>
-        </div>
-        """, unsafe_allow_html=True)
-
-# LINHA
-st.markdown("---")
-
-# LAYOUT PRINCIPAL
-col_left, col_right = st.columns([3,1])
-
-with col_left:
-
     st.markdown("""
-    <h1 style="color:#222;">
-    Rayane
-    </h1>
+    <h2 style="color:white;">Rayane</h2>
+
+    <p style="color:#ccc; font-size:18px; line-height:1.8;">
+    Rayane é estudante do Ensino Médio no IFPB Campus Itabaiana,
+    dedicada aos estudos e interessada em tecnologia.
+    </p>
     """, unsafe_allow_html=True)
 
-    sub1, sub2 = st.columns([1,3])
+    st.link_button("🎬 Visitar Netflix", "https://www.netflix.com/br/")
 
-    # FOTO PERFIL
-    with sub1:
+st.markdown("</div>", unsafe_allow_html=True)
 
-        if os.path.exists("foto 88.png"):
-            st.image("foto 88.png", width=250)
+# =========================
+# WHATSAPP FINAL
+# =========================
+st.markdown("<br><br>", unsafe_allow_html=True)
 
-    # TEXTO
-    with sub2:
-
-        st.markdown("""
-        <div style="
-            font-size:20px;
-            line-height:2;
-            text-align:justify;
-            margin-top:20px;
-        ">
-
-        <b>Sobre Rayane:</b><br><br>
-
-        Rayane é estudante do Ensino Médio no IFPB Campus Itabaiana,
-        dedicada aos estudos e interessada em tecnologia.
-
-        </div>
-        """, unsafe_allow_html=True)
-
-    st.link_button(
-        "🎬 Visitar Site da Netflix",
-        "https://www.netflix.com/br/"
-    )
-
-# WHATSAPP
-if zap_base64:
+if zap:
     st.markdown(f"""
-    <div style="text-align:center; margin-top:30px;">
+    <div style="text-align:center;">
 
         <a href="https://wa.me/5581997471583" target="_blank">
 
-            <img src="data:image/png;base64,{zap_base64}"
-                 width="100">
+            <img src="data:image/png;base64,{zap}"
+                 width="90"
+                 style="transition:0.3s;">
 
         </a>
 
     </div>
     """, unsafe_allow_html=True)
+else:
+    st.warning("Imagem do WhatsApp não encontrada")
