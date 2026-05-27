@@ -13,7 +13,7 @@ def get_base64_image(path):
     return None
 
 # IMAGENS
-img_base64 = get_base64_image("netflix.png")
+img_base64 = get_base64_image("imagens.png")
 zap_base64 = get_base64_image("whatsapp.png")
 
 # TOPO
